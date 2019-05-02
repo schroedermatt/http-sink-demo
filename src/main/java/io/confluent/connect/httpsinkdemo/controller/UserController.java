@@ -2,18 +2,38 @@ package io.confluent.connect.httpsinkdemo.controller;
 
 import io.confluent.connect.httpsinkdemo.domain.User;
 import io.confluent.connect.httpsinkdemo.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Slf4j
 public class UserController {
 
   private final UserRepository userRepository;
 
   public UserController(UserRepository userRepository) {
     this.userRepository = userRepository;
+  }
+
+  @PostMapping(path = "/api/messages")
+  public ResponseEntity createMessage(@RequestBody String message) {
+    log.info("MESSAGE RECEIVED: {}", message);
+
+    return ResponseEntity
+        .ok()
+        .build();
+  }
+
+  @PostMapping(path = "/api/messages/batch")
+  public ResponseEntity createMessages(@RequestBody List<String> messages) {
+    log.info("MESSAGES RECEIVED: {}", messages);
+
+    return ResponseEntity
+        .ok()
+        .build();
   }
 
   @GetMapping(path = "/api/users")
