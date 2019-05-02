@@ -54,3 +54,19 @@ This app can be used for testing against various types of auth.
         http://localhost:8080/api/users \
         -H 'Authorization: Bearer {token}'
     ```
+    
+## Docker
+
+This project is packaged up into a Docker image available for use. Run it with the different profiles mentioned above to test out the various security types.
+
+### Build New Image
+
+```
+mvn clean install dockerfile:build
+```
+
+### Run Container
+
+```
+docker run -e "SPRING_PROFILES_ACTIVE=basic-auth" -p 8080:8080 schroedermatt/http-sink-demo:latest
+```
