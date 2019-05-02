@@ -17,6 +17,16 @@ This app can be used for testing against various types of auth.
 2. Run the app
 3. Call any endpoint
 
+    ```bash
+    # create a message
+    curl -X POST \
+      http://localhost:8080/api/messages \
+      -d message-goes-here
+      
+    # get all messages
+    curl -X POST http://localhost:8080/api/messages
+    ```
+
 ## Basic Auth
 
 1. Set profile
@@ -27,8 +37,15 @@ This app can be used for testing against various types of auth.
 2. Run the app
 3. Call endpoints with Basic Auth Header
     ```bash
+    # create a message
     curl -X POST \
-      http://localhost:8080/api/users \
+      http://localhost:8080/api/messages \
+      -H 'Authorization: Basic YWRtaW46cGFzc3dvcmQ='
+      -d message-goes-here
+    
+    # get all messages
+    curl -X POST \
+      http://localhost:8080/api/messages \
       -H 'Authorization: Basic YWRtaW46cGFzc3dvcmQ='
     ```
 
@@ -50,8 +67,14 @@ This app can be used for testing against various types of auth.
     ```
 4. Use Token (substitute `{token}` with value from previous step)
     ````
+    # create a message
+    curl -X POST \
+      http://localhost:8080/api/messages \
+      -H 'Authorization: Bearer {token}'
+      -d message-goes-here
+      
     curl -X GET \
-        http://localhost:8080/api/users \
+        http://localhost:8080/api/messages \
         -H 'Authorization: Bearer {token}'
     ```
     
