@@ -1,4 +1,4 @@
-package io.confluent.connect.httpsinkdemo.security;
+package com.schroedermatt.connect.http.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

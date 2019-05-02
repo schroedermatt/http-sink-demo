@@ -1,6 +1,6 @@
-package io.confluent.connect.httpsinkdemo.repository;
+package com.schroedermatt.connect.http.repository;
 
-import io.confluent.connect.httpsinkdemo.domain.Message;
+import com.schroedermatt.connect.http.domain.Message;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

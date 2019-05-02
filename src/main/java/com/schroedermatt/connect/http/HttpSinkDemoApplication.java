@@ -1,4 +1,4 @@
-package io.confluent.connect.httpsinkdemo;
+package com.schroedermatt.connect.http;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

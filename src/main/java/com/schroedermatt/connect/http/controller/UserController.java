@@ -1,7 +1,7 @@
-package io.confluent.connect.httpsinkdemo.controller;
+package com.schroedermatt.connect.http.controller;
 
-import io.confluent.connect.httpsinkdemo.domain.User;
-import io.confluent.connect.httpsinkdemo.repository.UserRepository;
+import com.schroedermatt.connect.http.repository.UserRepository;
+import com.schroedermatt.connect.http.domain.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

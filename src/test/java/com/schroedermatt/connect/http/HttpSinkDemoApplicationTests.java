@@ -1,4 +1,4 @@
-package io.confluent.connect.httpsinkdemo;
+package com.schroedermatt.connect.http;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

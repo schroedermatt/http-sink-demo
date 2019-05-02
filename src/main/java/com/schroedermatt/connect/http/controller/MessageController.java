@@ -1,17 +1,13 @@
-package io.confluent.connect.httpsinkdemo.controller;
+package com.schroedermatt.connect.http.controller;
 
-import io.confluent.connect.httpsinkdemo.domain.Message;
-import io.confluent.connect.httpsinkdemo.domain.User;
-import io.confluent.connect.httpsinkdemo.repository.MessageRepository;
-import io.confluent.connect.httpsinkdemo.repository.UserRepository;
+import com.schroedermatt.connect.http.domain.Message;
+import com.schroedermatt.connect.http.repository.MessageRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 

@@ -55,6 +55,22 @@ This app can be used for testing against various types of auth.
         -H 'Authorization: Bearer {token}'
     ```
     
+## SSL
+
+1. Set profile
+    ```
+    SPRING_PROFILES_ACTIVE=ssl-auth
+    ```
+2. Use cert in root of project to call endpoints
+
+Notes:
+* _port `8443` is used instead of `8080`_
+* _Keystore was generated with this command:_
+    ```bash
+     keytool -genkeypair -alias tomcat -keyalg RSA -keysize 2048 
+    -keystore keystore.jks -validity 3650
+    ```
+
 ## Docker
 
 This project is packaged up into a Docker image available for use. Run it with the different profiles mentioned above to test out the various security types.
@@ -63,10 +79,24 @@ This project is packaged up into a Docker image available for use. Run it with t
 
 ```
 mvn clean install dockerfile:build
+
+# to push new image
+docker login
+mvn clean install dockerfile:build dockerfile:push
 ```
 
 ### Run Container
 
 ```
-docker run -e "SPRING_PROFILES_ACTIVE=basic-auth" -p 8080:8080 schroedermatt/http-sink-demo:latest
+# simple auth
+docker run -e "SPRING_PROFILES_ACTIVE=simple-auth" -p 8080:8080 msschroe3/http-sink-demo:latest
+
+# basic auth
+docker run -e "SPRING_PROFILES_ACTIVE=basic-auth" -p 8080:8080 msschroe3/http-sink-demo:latest
+
+# oauth2
+docker run -e "SPRING_PROFILES_ACTIVE=oauth2" -p 8080:8080 msschroe3/http-sink-demo:latest
+
+# ssl auth
+docker run -e "SPRING_PROFILES_ACTIVE=ssl-auth" -p 8443:8443 msschroe3/http-sink-demo:latest
 ```

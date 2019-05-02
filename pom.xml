@@ -8,7 +8,7 @@
 		<version>2.1.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>io.confluent.connect</groupId>
+	<groupId>com.schroedermatt.connect</groupId>
 	<artifactId>http-sink-demo</artifactId>
 	<version>0.0.1</version>
 	<name>http-sink-demo</name>
@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<docker.image.prefix>schroedermatt</docker.image.prefix>
+		<docker.image.prefix>msschroe3</docker.image.prefix>
 	</properties>
 
 	<dependencies>

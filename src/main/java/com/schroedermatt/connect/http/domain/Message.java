@@ -1,4 +1,4 @@
-package io.confluent.connect.httpsinkdemo.domain;
+package com.schroedermatt.connect.http.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

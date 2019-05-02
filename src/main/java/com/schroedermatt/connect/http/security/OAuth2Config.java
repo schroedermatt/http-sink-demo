@@ -1,4 +1,4 @@
-package io.confluent.connect.httpsinkdemo.security;
+package com.schroedermatt.connect.http.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
