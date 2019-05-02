@@ -31,7 +31,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import javax.annotation.Resource;
 
 import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
-import static org.springframework.core.Ordered.LOWEST_PRECEDENCE;
 
 @Configuration
 public class OAuth2Config {
@@ -74,15 +73,17 @@ public class OAuth2Config {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private TokenStore tokenStore;
-
-    @Autowired
     private PasswordEncoder encoder;
+
+    @Bean
+    public TokenStore tokenStore() {
+      return new InMemoryTokenStore();
+    }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
       endpoints
-          .tokenStore(tokenStore)
+          .tokenStore(tokenStore())
           .authenticationManager(authenticationManager);
     }
 
@@ -102,10 +103,10 @@ public class OAuth2Config {
     }
   }
 
-  @Profile("oauth2")
-  @EnableWebSecurity(debug = true)
-  @Configuration
   @Order(151)
+  @Profile("oauth2")
+  @Configuration
+  @EnableWebSecurity(debug = true)
   public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
@@ -114,7 +115,6 @@ public class OAuth2Config {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
       return super.authenticationManagerBean();
@@ -125,11 +125,6 @@ public class OAuth2Config {
       auth
           .userDetailsService(userDetailsService)
           .passwordEncoder(passwordEncoder);
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-      return new InMemoryTokenStore();
     }
 
     @Bean

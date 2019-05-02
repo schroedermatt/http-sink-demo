@@ -1,4 +1,0 @@
-# when simple-auth is active, don't run the SecurityAutoConfiguration
-spring:
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration

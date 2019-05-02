@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HttpSinkDemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(HttpSinkDemoApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(HttpSinkDemoApplication.class, args);
+  }
 
 }
