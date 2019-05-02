@@ -2,15 +2,12 @@ package io.confluent.connect.httpsinkdemo.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,7 +20,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -31,16 +27,16 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import javax.annotation.Resource;
 
-import static org.springframework.http.HttpMethod.OPTIONS;
+import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
+import static org.springframework.core.Ordered.LOWEST_PRECEDENCE;
 
 @Configuration
 public class OAuth2Config {
 
-  @Order(1)
+  @Order(HIGHEST_PRECEDENCE)
   @Profile("oauth2")
   @Configuration
   @EnableResourceServer
@@ -55,9 +51,9 @@ public class OAuth2Config {
       http
           .cors().and().csrf().disable()
           .authorizeRequests()
-          .anyRequest().authenticated().and()
+          .antMatchers("/api/**").authenticated().and()
           .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-          .csrf().disable();
+          .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
     }
 
     @Override
@@ -70,7 +66,7 @@ public class OAuth2Config {
 
   @Profile("oauth2")
   @Configuration
-  @Order(3)
+  @Order(150)
   @EnableAuthorizationServer
   @Slf4j
   protected static class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
@@ -107,9 +103,9 @@ public class OAuth2Config {
   }
 
   @Profile("oauth2")
-  @EnableWebSecurity
+  @EnableWebSecurity(debug = true)
   @Configuration
-  @Order(2)
+  @Order(151)
   public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource

@@ -2,6 +2,11 @@ security:
   basic:
     enable: false
   oauth2:
-    client:
-      client-id: first-client
-      client-secret: noonewilleverguess
+    resource:
+      filter-order: 3
+
+
+
+logging:
+  level:
+    org.springframework.security: DEBUG
