@@ -7,22 +7,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-@Configuration
+@Order(1)
+@Profile({"basic-auth", "ssl-auth"})
 @EnableWebSecurity
-public class BasicAuthConfig {
-  @Configuration
-  @Order(1)
-  @Profile({"basic-auth", "ssl-auth"})
-  public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
-    protected void configure(HttpSecurity http) throws Exception {
-      http
-          .antMatcher("/api/**")
-          .authorizeRequests()
-          .anyRequest().hasRole("ADMIN")
-          .and()
-          .httpBasic()
-          .and()
-          .csrf().disable();
-    }
+@Configuration
+public class BasicAuthConfig extends WebSecurityConfigurerAdapter {
+  protected void configure(HttpSecurity http) throws Exception {
+    http
+        .antMatcher("/api/**")
+        .authorizeRequests()
+        .anyRequest().hasRole("ADMIN")
+        .and()
+        .httpBasic()
+        .and()
+        .csrf().disable();
   }
 }
